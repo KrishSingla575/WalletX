@@ -4,7 +4,7 @@ import { C, FM, FN } from "../constants/theme";
 import { PERIOD_MAP, PERIOD_STATS, pieData } from "../data/chartData";
 
 function Analytics() {
-  const [period, setPeriod] = useState("7m");
+  const [period, setPeriod] = useState("1m");
   const data = PERIOD_MAP[period];
   const stats = PERIOD_STATS[period];
 
@@ -17,9 +17,6 @@ function Analytics() {
         marginBottom: 22,
       }}>
         <div>
-          <h1 style={{ fontFamily: "Inter, sans-serif", color: C.text, fontSize: 26, fontWeight: 700, margin: "0 0 4px" }}>
-            Analytics
-          </h1>
         </div>
         <div style={{
           display: "flex",
@@ -36,7 +33,7 @@ function Analytics() {
               style={{
                 padding: "7px 16px",
                 borderRadius: 9,
-                background: period === p ? C.gold : "transparent",
+                background: period === p ? C.purple : "transparent",
                 border: "none",
                 color: period === p ? "#000" : C.muted,
                 fontFamily: FN,
