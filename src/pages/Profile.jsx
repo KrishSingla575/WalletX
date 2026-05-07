@@ -13,12 +13,9 @@ function Profile() {
   return (
     <div style={{ padding: 24 }}>
       <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontFamily: FM, color: C.text, fontSize: 36, fontWeight: 800, margin: 0 }}>
+        <h1 style={{ fontFamily: "Inter, sans-serif", color: C.text, fontSize: 36, fontWeight: 800, margin: 0 }}>
           Profile
         </h1>
-        <p style={{ fontFamily: FM, color: C.muted, fontSize: 14, margin: "10px 0 0" }}>
-          Account, security & preferences.
-        </p>
       </div>
 
       <div style={{

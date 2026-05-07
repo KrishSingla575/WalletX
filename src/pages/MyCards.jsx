@@ -6,23 +6,9 @@ import AddCardModal from "../components/AddCardModal";
 
 function MyCards() {
   const [cards, setCards] = useState(cardsData);
-  const [flipped, setFlipped] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
   const [toast, setToast] = useState(null);
-  const [frozenCards, setFrozenCards] = useState({});
-
-  const handleAction = (action, cardIdx) => {
-    if (action === "Freeze") {
-      setFrozenCards((prev) => ({ ...prev, [cardIdx]: !prev[cardIdx] }));
-      setToast(frozenCards[cardIdx] ? "Card unfrozen successfully" : "Card frozen successfully");
-    } else if (action === "Set Limit") {
-      setToast("Spending limit updated");
-    } else if (action === "View PIN") {
-      setToast("PIN sent to your registered phone");
-    } else if (action === "Cancel") {
-      setToast("Cancellation request submitted");
-    }
-  };
 
   return (
     <div>
@@ -85,48 +71,24 @@ function MyCards() {
 
       <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         {cards.map((card, i) => {
-          const isFrozen = frozenCards[i];
           return (
             <div key={card.id}>
               <div
-                onClick={() => setFlipped(flipped === i ? null : i)}
+                onClick={() => setSelectedCard(selectedCard === i ? null : i)}
                 style={{
                   background: `linear-gradient(135deg, ${card.bg1}, ${card.bg2})`,
                   border: `1px solid ${card.accent}55`,
                   borderRadius: 22,
                   padding: "26px 30px",
                   cursor: "pointer",
-                  transition: "transform 0.2s",
+                  transition: "transform 0.2s, box-shadow 0.2s",
                   position: "relative",
                   overflow: "hidden",
                   boxShadow: `0 6px 30px ${card.accent}18`,
-                  opacity: isFrozen ? 0.65 : 1,
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-3px)")}
                 onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
               >
-                {isFrozen && (
-                  <div style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "#00000055",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    zIndex: 1,
-                    borderRadius: 22,
-                  }}>
-                    <span style={{
-                      fontFamily: FM,
-                      fontWeight: 700,
-                      color: C.blue,
-                      fontSize: 18,
-                      letterSpacing: "0.1em",
-                    }}>
-                      FROZEN
-                    </span>
-                  </div>
-                )}
                 <div style={{
                   position: "absolute",
                   top: -40,
@@ -198,46 +160,29 @@ function MyCards() {
                 </div>
               </div>
 
-              {flipped === i && (
-                <div style={{
-                  background: C.card,
-                  border: `1px solid ${card.accent}33`,
-                  borderTop: "none",
-                  borderRadius: "0 0 18px 18px",
-                  padding: "14px 22px",
-                }}>
-                  <div style={{ display: "flex", gap: 10 }}>
-                    {[
-                      { label: isFrozen ? "Unfreeze" : "Freeze", col: C.blue },
-                      { label: "Set Limit", col: C.gold },
-                      { label: "View PIN", col: C.green },
-                      { label: "Cancel", col: C.red },
-                    ].map((a) => (
-                      <button
-                        key={a.label}
-                        onClick={() =>
-                          handleAction(a.label === "Unfreeze" ? "Freeze" : a.label, i)
-                        }
-                        style={{
-                          flex: 1,
-                          padding: "9px 0",
-                          background: "transparent",
-                          border: `1px solid ${a.col}55`,
-                          borderRadius: 9,
-                          color: a.col,
-                          fontFamily: FM,
-                          fontSize: 11,
-                          cursor: "pointer",
-                          fontWeight: 600,
-                          transition: "background 0.15s",
-                        }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = `${a.col}15`)}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-                      >
-                        {a.label}
-                      </button>
-                    ))}
-                  </div>
+              {selectedCard === i && (
+                <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 12 }}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCards((prev) => prev.filter((_, idx) => idx !== i));
+                      setSelectedCard(null);
+                      setToast("Card removed successfully");
+                    }}
+                    style={{
+                      padding: "10px 18px",
+                      background: C.red,
+                      border: "none",
+                      borderRadius: 12,
+                      color: "#fff",
+                      fontFamily: FM,
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
+                    }}
+                  >
+                    Remove card
+                  </button>
                 </div>
               )}
             </div>

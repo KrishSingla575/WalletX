@@ -5,16 +5,23 @@ import TxRow from "../components/TxRow";
 function Transactions() {
   return (
     <div>
-      <h1 style={{ fontFamily: FM, color: C.text, fontSize: 26, fontWeight: 700, margin: "0 0 4px" }}>
-        Transactions
-      </h1>
-      <p style={{ color: C.muted, fontFamily: FM, fontSize: 13, margin: "0 0 22px" }}>
-        All {transactions.length} transactions this month
-      </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        {transactions.map((t) => (
-          <TxRow key={t.id} t={t} />
-        ))}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20, gap: 12 }}>
+          <h1 style={{ fontFamily: "Inter, sans-serif", color: C.text, fontSize: 32, fontWeight: 800, margin: 0 }}>
+            Transactions
+          </h1>
+      </div>
+
+      <div style={{
+        background: C.surface,
+        border: `1px solid ${C.border}`,
+        borderRadius: 28,
+        padding: 20,
+      }}>
+        <div style={{ display: "grid", gap: 14 }}>
+          {transactions.map((t) => (
+            <TxRow key={t.id} t={t} />
+          ))}
+        </div>
       </div>
     </div>
   );

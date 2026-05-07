@@ -17,12 +17,9 @@ function Analytics() {
         marginBottom: 22,
       }}>
         <div>
-          <h1 style={{ fontFamily: FM, color: C.text, fontSize: 26, fontWeight: 700, margin: "0 0 4px" }}>
+          <h1 style={{ fontFamily: "Inter, sans-serif", color: C.text, fontSize: 26, fontWeight: 700, margin: "0 0 4px" }}>
             Analytics
           </h1>
-          <p style={{ color: C.muted, fontFamily: FM, fontSize: 13, margin: 0 }}>
-            Track your financial health
-          </p>
         </div>
         <div style={{
           display: "flex",
