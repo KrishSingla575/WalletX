@@ -34,25 +34,12 @@ function MyCards() {
         />
       )}
 
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 22,
-      }}>
-        <div>
-          <h1 style={{ fontFamily: FM, color: C.text, fontSize: 26, fontWeight: 700, margin: "0 0 4px" }}>
-            My Cards
-          </h1>
-          <p style={{ color: C.muted, fontFamily: FM, fontSize: 13, margin: 0 }}>
-            Manage your payment cards
-          </p>
-        </div>
+      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 22 }}>
         <button
           onClick={() => setShowAdd(true)}
           style={{
             padding: "10px 20px",
-            background: C.gold,
+            background: C.white,
             border: "none",
             borderRadius: 11,
             fontFamily: FM,
@@ -102,61 +89,70 @@ function MyCards() {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "flex-start",
-                  marginBottom: 32,
+                  marginBottom: 28,
                 }}>
                   <div>
                     <p style={{
-                      color: `${C.text}66`,
-                      fontSize: 10,
+                      color: `${C.text}88`,
+                      fontSize: 11,
                       fontFamily: FM,
                       textTransform: "uppercase",
-                      letterSpacing: "0.1em",
-                      margin: "0 0 5px",
+                      letterSpacing: "0.18em",
+                      margin: "0 0 8px",
                     }}>
                       {card.label}
                     </p>
-                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      <div style={{ width: 20, height: 20, borderRadius: 4, background: `${card.accent}44` }} />
-                      <div style={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: 4,
-                        background: `${card.accent}66`,
-                        marginLeft: -8,
-                      }} />
-                      <span style={{ color: card.accent, fontSize: 12, fontFamily: FM, marginLeft: 5 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <div style={{ width: 26, height: 26, borderRadius: 8, background: `${card.accent}44`, boxShadow: `0 12px 30px ${card.accent}18` }} />
+                      <span style={{ color: C.text, fontSize: 14, fontFamily: FM, fontWeight: 700 }}>
                         {card.type}
                       </span>
                     </div>
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <p style={{ color: `${C.text}55`, fontSize: 10, fontFamily: FM, margin: "0 0 3px" }}>
+                    <p style={{ color: `${C.text}55`, fontSize: 10, fontFamily: FM, margin: "0 0 6px" }}>
                       Balance
                     </p>
                     <p style={{
                       fontFamily: FN,
-                      fontSize: 20,
-                      fontWeight: 700,
+                      fontSize: 28,
+                      fontWeight: 800,
                       color: C.text,
                       margin: 0,
+                      letterSpacing: "-0.02em",
                     }}>
                       ${card.balance.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ marginBottom: 18 }}>
                   <p style={{
                     fontFamily: FN,
-                    fontSize: 14,
-                    color: `${C.text}99`,
+                    fontSize: 18,
+                    color: C.text,
                     margin: 0,
-                    letterSpacing: "0.06em",
+                    letterSpacing: "0.15em",
                   }}>
                     {card.number}
                   </p>
-                  <p style={{ fontFamily: FN, fontSize: 12, color: `${C.text}55`, margin: 0 }}>
-                    {card.expiry}
-                  </p>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20 }}>
+                  <div>
+                    <p style={{ color: `${C.text}55`, fontSize: 10, fontFamily: FM, margin: "0 0 6px" }}>
+                      Card holder
+                    </p>
+                    <p style={{ fontFamily: FM, fontSize: 14, color: C.text, fontWeight: 700, margin: 0 }}>
+                      {card.holder || "Alex Morgan"}
+                    </p>
+                  </div>
+                  <div>
+                    <p style={{ color: `${C.text}55`, fontSize: 10, fontFamily: FM, margin: "0 0 6px" }}>
+                      Expires
+                    </p>
+                    <p style={{ fontFamily: FM, fontSize: 14, color: C.text, fontWeight: 700, margin: 0 }}>
+                      {card.expiry}
+                    </p>
+                  </div>
                 </div>
               </div>
 

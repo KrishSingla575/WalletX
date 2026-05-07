@@ -13,6 +13,7 @@ function App() {
   const [page, setPage] = useState("dashboard");
   const [showSend, setShowSend] = useState(false);
   const [showReceive, setShowReceive] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
     const link = document.createElement("link");
@@ -27,7 +28,14 @@ function App() {
     cards: <MyCards />,
     transactions: <Transactions />,
     analytics: <Analytics />,
-    profile: <Profile />,
+    profile: <Profile/>,
+  };
+
+  const pageHeaders = {
+    dashboard: {title: "Welcome back, Alex"},
+    cards: {title: "Your cards"},
+    transactions: {title: "Transactions"},
+    profile: {title: "Profile"},
   };
 
   return (
@@ -92,6 +100,7 @@ function App() {
               <button
                 key={item.id}
                 onClick={() => {
+                  setShowNotifications(false);
                   if (item.id === "send") return setShowSend(true);
                   if (item.id === "receive") return setShowReceive(true);
                   setPage(item.id);
@@ -104,9 +113,9 @@ function App() {
                   padding: "11px 12px",
                   borderRadius: 11,
                   border: "none",
-                  background: active ? `${C.gold}18` : "transparent",
-                  color: active ? C.gold : C.muted,
-                  fontFamily: FM,
+                  background: active ? `${C.purple}18` : "transparent",
+                  color: active ? C.purple : C.text,
+                  fontFamily: "Inter, sans-serif",
                   fontSize: 13,
                   cursor: "pointer",
                   fontWeight: active ? 600 : 400,
@@ -125,17 +134,6 @@ function App() {
                   {item.icon}
                 </span>
                 {item.label}
-                {!isAction && active && (
-                  <div
-                    style={{
-                      marginLeft: "auto",
-                      width: 5,
-                      height: 5,
-                      borderRadius: "50%",
-                      background: C.gold,
-                    }}
-                  />
-                )}
               </button>
             );
           })}
@@ -143,7 +141,100 @@ function App() {
       </div>
 
       {/* Main content */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "30px 32px" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "30px 32px", position: "relative" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 18,
+            flexWrap: "wrap",
+            marginBottom: 24,
+          }}
+        >
+          <div>
+            <h1 style={{ fontFamily: "Inter, sans-serif", color: C.text, fontSize: 35, fontWeight: 800, margin: 0 }}>
+              {pageHeaders[page]?.title}
+            </h1>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            <button
+              onClick={() => setShowNotifications((prev) => !prev)}
+              style={{
+                position: "relative",
+                width: 44,
+                height: 44,
+                borderRadius: 14,
+                border: "1px solid rgba(255,255,255,0.12)",
+                background: C.card,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                color: C.text,
+              }}
+            >
+              <i className="fas fa-bell" style={{ fontSize: 16 }} />
+              <span
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  right: 10,
+                  width: 10,
+                  height: 10,
+                  borderRadius: "50%",
+                  background: "#6C63FF",
+                  boxShadow: "0 0 0 3px rgba(108, 99, 255, 0.1)",
+                }}
+              />
+            </button>
+            <button
+              onClick={() => {
+                setShowNotifications(false);
+                setPage("profile");
+              }}
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: "50%",
+                background: "linear-gradient(135deg, #7C5CFF, #A56BFF)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                fontWeight: 700,
+                fontSize: 14,
+                boxShadow: "0 20px 40px rgba(124, 92, 255, 0.12)",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              AM
+            </button>
+          </div>
+        </div>
+        {showNotifications && (
+          <div style={{
+            position: "absolute",
+            top: 92,
+            right: 32,
+            width: 320,
+            background: C.surface,
+            border: `1px solid ${C.border}`,
+            borderRadius: 24,
+            boxShadow: "0 28px 80px rgba(0, 0, 0, 0.16)",
+            padding: 22,
+            zIndex: 20,
+          }}>
+            <h3 style={{ fontFamily: FM, fontSize: 18, color: C.text, margin: 0 }}>
+              No new notifications
+            </h3>
+            <p style={{ fontFamily: FM, fontSize: 14, color: C.muted, margin: "10px 0 0" }}>
+              You're all caught up.
+            </p>
+          </div>
+        )}
         {pageMap[page]}
       </div>
     </div>

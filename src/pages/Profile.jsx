@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { C, FM, FN } from "../constants/theme";
 import { Bell, ShieldCheck, Lock, Globe2, HelpCircle, ArrowRight } from "lucide-react";
+import ModalShell from "../components/ModalShell";
 
 const profileSections = [
   { title: "Security & biometrics", subtitle: "Face ID, PIN, 2FA", icon: ShieldCheck },
@@ -10,14 +12,26 @@ const profileSections = [
 ];
 
 function Profile() {
-  return (
-    <div style={{ padding: 24 }}>
-      <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontFamily: "Inter, sans-serif", color: C.text, fontSize: 36, fontWeight: 800, margin: 0 }}>
-          Profile
-        </h1>
-      </div>
+  const [showEdit, setShowEdit] = useState(false);
+  const [profile, setProfile] = useState({
+    name: "Alex Morgan",
+    email: "alex.morgan@walletx.app",
+    handle: "@alexmorgan",
+  });
+  const [draft, setDraft] = useState(profile);
 
+  const openEdit = () => {
+    setDraft(profile);
+    setShowEdit(true);
+  };
+
+  const saveEdit = () => {
+    setProfile(draft);
+    setShowEdit(false);
+  };
+
+  return (
+    <div style={{padding: 14}}>
       <div style={{
         background: C.surface,
         border: `1px solid ${C.border}`,
@@ -31,9 +45,9 @@ function Profile() {
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <div style={{
-            width: 80,
-            height: 80,
-            borderRadius: 22,
+            width: 100,
+            height: 100,
+            borderRadius: 42,
             background: "linear-gradient(135deg, #7C3AED, #6366F1)",
             display: "flex",
             alignItems: "center",
@@ -43,14 +57,14 @@ function Profile() {
             fontWeight: 800,
             fontFamily: FM,
           }}>
-            AM
+            {profile.name.split(" ").map((part) => part[0]).join("").slice(0, 2)}
           </div>
           <div>
             <p style={{ fontFamily: FM, fontSize: 20, fontWeight: 700, color: C.text, margin: 0 }}>
-              Alex Morgan
+              {profile.name}
             </p>
             <p style={{ fontFamily: FM, fontSize: 13, color: C.muted, margin: "8px 0 0" }}>
-              alex.morgan@walletx.app · @alexmorgan
+              {profile.email} · {profile.handle}
             </p>
             <span style={{
               display: "inline-flex",
@@ -70,16 +84,19 @@ function Profile() {
           </div>
         </div>
 
-        <button style={{
-          border: `1px solid ${C.border}`,
-          background: C.card,
-          color: C.text,
-          borderRadius: 18,
-          padding: "12px 22px",
-          fontFamily: FM,
-          fontWeight: 700,
-          cursor: "pointer",
-        }}>
+        <button
+          onClick={openEdit}
+          style={{
+            border: `1px solid ${C.border}`,
+            background: C.card,
+            color: C.text,
+            borderRadius: 18,
+            padding: "12px 22px",
+            fontFamily: FM,
+            fontWeight: 700,
+            cursor: "pointer",
+          }}
+        >
           Edit
         </button>
       </div>
@@ -143,6 +160,80 @@ function Profile() {
           Sign out
         </button>
       </div>
+
+      {showEdit && (
+        <ModalShell onClose={() => setShowEdit(false)} width={520}>
+          <h2 style={{
+            fontFamily: FM,
+            fontSize: 26,
+            fontWeight: 800,
+            color: C.text,
+            margin: 0,
+          }}>
+            Edit profile
+          </h2>
+          <p style={{
+            fontFamily: FM,
+            fontSize: 14,
+            color: C.muted,
+            margin: "10px 0 24px",
+          }}>
+            Update your account details and profile information.
+          </p>
+
+          {[
+            { label: "Full name", value: draft.name, setter: (value) => setDraft((prev) => ({ ...prev, name: value })) },
+            { label: "Email", value: draft.email, setter: (value) => setDraft((prev) => ({ ...prev, email: value })) },
+            { label: "Username", value: draft.handle, setter: (value) => setDraft((prev) => ({ ...prev, handle: value })) },
+          ].map((field) => (
+            <div key={field.label} style={{ marginBottom: 16 }}>
+              <label style={{
+                display: "block",
+                color: C.muted,
+                fontFamily: FM,
+                fontSize: 12,
+                marginBottom: 8,
+              }}>
+                {field.label}
+              </label>
+              <input
+                value={field.value}
+                onChange={(e) => field.setter(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "14px 16px",
+                  borderRadius: 16,
+                  border: `1px solid ${C.border}`,
+                  background: C.bg,
+                  color: C.text,
+                  fontFamily: FM,
+                  fontSize: 14,
+                  outline: "none",
+                }}
+              />
+            </div>
+          ))}
+
+          <button
+            onClick={saveEdit}
+            style={{
+              width: "100%",
+              padding: "16px 0",
+              marginTop: 8,
+              background: "linear-gradient(135deg, #7C5CFF, #A56BFF)",
+              border: "none",
+              borderRadius: 16,
+              color: "#fff",
+              fontFamily: FM,
+              fontWeight: 700,
+              fontSize: 15,
+              cursor: "pointer",
+            }}
+          >
+            Save changes
+          </button>
+        </ModalShell>
+      )}
     </div>
   );
 }

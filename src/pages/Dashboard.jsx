@@ -14,24 +14,12 @@ const periodOptions = [
 ];
 
 function Dashboard({ onSend, onReceive }) {
-  const [selectedPeriod, setSelectedPeriod] = useState("1m");
+  const [selectedPeriod, setSelectedPeriod] = useState("1w");
   const periodData = periodOptions.find((option) => option.id === selectedPeriod)?.data || DATA_1M;
   const dashboardFont = "Inter, sans-serif";
 
   return (
     <div style={{ fontFamily: dashboardFont }}>
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        marginBottom: 26,
-      }}>
-        <div>
-          <h1 style={{ fontFamily: dashboardFont, color: C.text, fontSize: 32, fontWeight: 800, margin: 0 }}>
-            Welcome back, Alex
-          </h1>
-        </div>
-      </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1.6fr 1fr", gap: 18, marginBottom: 22 }}>
         <div style={{
@@ -98,7 +86,7 @@ function Dashboard({ onSend, onReceive }) {
                   Spending
                 </p>
                 <p style={{ color: C.muted, fontFamily: dashboardFont, fontSize: 12, margin: "6px 0 0" }}>
-                  Last month overview
+                  Last week overview
                 </p>
               </div>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
