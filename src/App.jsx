@@ -36,6 +36,7 @@ function App() {
     cards: {title: "Your cards"},
     transactions: {title: "Transactions"},
     profile: {title: "Profile"},
+    analytics: {title: "Analytics"},
   };
 
   return (
