@@ -59,39 +59,43 @@ function App() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 9,
+            gap: 12,
             padding: "0 8px",
             marginBottom: 32,
           }}
         >
           <div
             style={{
-              width: 34,
-              height: 34,
-              borderRadius: 9,
-              background: C.gold,
+              width: 42,
+              height: 42,
+              borderRadius: "50%",
+              background: "linear-gradient(135deg, #7C5CFF, #8B6CFF)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontWeight: 800,
-              color: "#000",
-              fontSize: 16,
-              fontFamily: FM,
+              boxShadow: "0 18px 40px rgba(124, 92, 255, 0.2)",
+              color: "#fff",
+              fontSize: 18,
             }}
           >
-            W
+            <i className="fas fa-wallet" />
           </div>
-          <span style={{ fontFamily: FM, fontWeight: 800, fontSize: 19, color: C.text }}>
+          <span style={{ fontFamily: "Inter, sans-serif", fontWeight: 1000, fontSize: 20, color: C.text }}>
             WalletX
           </span>
         </div>
         <nav style={{ flex: 1 }}>
           {navItems.map((item) => {
             const active = page === item.id;
+            const isAction = item.id === "send" || item.id === "receive";
             return (
               <button
                 key={item.id}
-                onClick={() => setPage(item.id)}
+                onClick={() => {
+                  if (item.id === "send") return setShowSend(true);
+                  if (item.id === "receive") return setShowReceive(true);
+                  setPage(item.id);
+                }}
                 style={{
                   width: "100%",
                   display: "flex",
@@ -121,7 +125,7 @@ function App() {
                   {item.icon}
                 </span>
                 {item.label}
-                {active && (
+                {!isAction && active && (
                   <div
                     style={{
                       marginLeft: "auto",
@@ -136,42 +140,6 @@ function App() {
             );
           })}
         </nav>
-        <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 14 }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 9,
-              padding: "9px 10px",
-              borderRadius: 11,
-              background: C.card,
-            }}
-          >
-            <div
-              style={{
-                width: 32,
-                height: 32,
-                borderRadius: 9,
-                background: C.gold,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: FM,
-                fontWeight: 700,
-                color: "#000",
-                fontSize: 13,
-              }}
-            >
-              A
-            </div>
-            <div>
-              <p style={{ fontFamily: FM, fontSize: 12, fontWeight: 600, color: C.text, margin: 0 }}>
-                Alex Johnson
-              </p>
-              <p style={{ fontSize: 10, color: C.muted, margin: 0 }}>Premium ✦</p>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Main content */}

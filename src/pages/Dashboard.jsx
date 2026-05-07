@@ -30,9 +30,6 @@ function Dashboard({ onSend, onReceive }) {
           <h1 style={{ fontFamily: dashboardFont, color: C.text, fontSize: 32, fontWeight: 800, margin: 0 }}>
             Welcome back, Alex
           </h1>
-          <p style={{ color: C.muted, fontFamily: dashboardFont, fontSize: 14, margin: "8px 0 0" }}>
-            Here&apos;s what&apos;s happening with your money today.
-          </p>
         </div>
       </div>
 
@@ -45,9 +42,6 @@ function Dashboard({ onSend, onReceive }) {
           overflow: "hidden",
           minHeight: 260,
         }}>
-          <div style={{ position: "absolute", top: 16, right: 16, width: 48, height: 48, borderRadius: 16, background: "rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-            👁
-          </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
             <div>
               <p style={{ color: "rgba(255,255,255,0.75)", fontFamily: dashboardFont, fontSize: 13, margin: 0, textTransform: "uppercase", letterSpacing: "0.12em" }}>
@@ -184,7 +178,7 @@ function Dashboard({ onSend, onReceive }) {
       </div>
 
       <div style={{
-        background: C.card,
+        background: C.surface,
         border: `1px solid ${C.border}`,
         borderRadius: 28,
         padding: 24,
@@ -200,7 +194,7 @@ function Dashboard({ onSend, onReceive }) {
           </div>
           <button style={{
             border: "none",
-            background: C.surface,
+            background: C.card,
             color: "#8B5CF6",
             padding: "10px 18px",
             borderRadius: 20,
@@ -213,7 +207,7 @@ function Dashboard({ onSend, onReceive }) {
         </div>
 
         <div style={{ display: "grid", gap: 14 }}>
-          {transactions.slice(0, 5).map((t) => (
+          {transactions.slice(0, 8).map((t) => (
             <TxRow key={t.id} t={t} />
           ))}
         </div>
