@@ -52,7 +52,6 @@ function App() {
       {showSend && <SendModal onClose={() => setShowSend(false)} />}
       {showReceive && <ReceiveModal onClose={() => setShowReceive(false)} />}
 
-      {/* Sidebar */}
       <div
         style={{
           width: 210,
@@ -141,7 +140,6 @@ function App() {
         </nav>
       </div>
 
-      {/* Main content */}
       <div style={{ flex: 1, overflowY: "auto", padding: "30px 32px", position: "relative" }}>
         <div
           style={{
