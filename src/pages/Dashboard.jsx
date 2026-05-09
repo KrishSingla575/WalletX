@@ -85,9 +85,6 @@ function Dashboard({ onSend, onReceive }) {
                 <p style={{ fontFamily: dashboardFont, fontWeight: 600, color: C.text, fontSize: 14, margin: 0 }}>
                   Spending
                 </p>
-                <p style={{ color: C.muted, fontFamily: dashboardFont, fontSize: 12, margin: "6px 0 0" }}>
-                  Last week overview
-                </p>
               </div>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 {periodOptions.map((option) => (
@@ -180,18 +177,6 @@ function Dashboard({ onSend, onReceive }) {
               Latest transactions and updates
             </p>
           </div>
-          <button style={{
-            border: "none",
-            background: C.card,
-            color: "#8B5CF6",
-            padding: "10px 18px",
-            borderRadius: 20,
-            fontFamily: dashboardFont,
-            fontWeight: 700,
-            cursor: "pointer",
-          }}>
-            View all
-          </button>
         </div>
 
         <div style={{ display: "grid", gap: 14 }}>
